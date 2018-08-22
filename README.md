@@ -16,4 +16,6 @@ If you have golang installed on your local machine, execute:
 
 Then run the code as normal with `go build` and `go run`
 
-## Will update with downloadable binaries 
+## Will update with downloadable binaries
+
+git shortlog -sn
