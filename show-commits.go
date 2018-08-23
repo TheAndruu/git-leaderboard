@@ -4,14 +4,20 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
+
+	"github.com/kr/pretty"
+
+	"github.com/TheAndruu/git-leaderboard/models"
 )
 
 func main() {
-	execShortlog()
+	commitCounts := getRepoCommits()
+	pretty.Print(commitCounts)
 }
 
-func execShortlog() {
+func getRepoCommits() []models.CommitCount {
 	cmdOut, err := exec.Command("git", "shortlog", "master", "--summary", "--numbered").Output()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "There was an error running the git command: ", err)
@@ -20,15 +26,23 @@ func execShortlog() {
 
 	commitLines := strings.Split(string(cmdOut), "\n")
 
+	var commitCounts []models.CommitCount
+
 	for _, element := range commitLines {
 		if len(element) < 1 {
 			// Any line without a report in it (separator, last line)
 			continue
 		}
 		commitLine := strings.Split(element, "\t")
-		fmt.Fprintln(os.Stdout, "Number of elements in commitLine: ", len(commitLine))
+		author := strings.TrimSpace(commitLine[1])
+		numCommits, err := strconv.Atoi(strings.TrimSpace(commitLine[0]))
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "Trouble reading the number of commits for author: ", author, err)
+			os.Exit(2)
+		}
+		authorCommit := models.CommitCount{Author: author, NumCommits: numCommits}
+		commitCounts = append(commitCounts, authorCommit)
 		fmt.Printf("%s has %s commits\n", commitLine[1], commitLine[0])
 	}
-
-	// fmt.Printf("Output: \n%s\n", output)
+	return commitCounts
 }

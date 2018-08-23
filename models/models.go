@@ -4,11 +4,11 @@ package models
 type RepoStats struct {
 	RepoName string
 	RepoURL  string
-	Commits  []CommitTally
+	Commits  []CommitCount
 }
 
-// CommitTally represents a count and author
-type CommitTally struct {
+// CommitCount represents a count and author
+type CommitCount struct {
 	Author     string
 	NumCommits int
 }
