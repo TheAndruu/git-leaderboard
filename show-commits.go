@@ -42,7 +42,6 @@ func getRepoCommits() []models.CommitCount {
 		}
 		authorCommit := models.CommitCount{Author: author, NumCommits: numCommits}
 		commitCounts = append(commitCounts, authorCommit)
-		fmt.Printf("%s has %s commits\n", commitLine[1], commitLine[0])
 	}
 	return commitCounts
 }
