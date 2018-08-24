@@ -34,5 +34,5 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	// Write content-type, statuscode, payload
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
-	fmt.Fprintf(w, "%s", target.RepoName)
+	fmt.Fprintf(w, "%s", json.NewEncoder(w).Encode(target))
 }
