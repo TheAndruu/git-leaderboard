@@ -34,5 +34,10 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	// Write content-type, statuscode, payload
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
-	fmt.Fprintf(w, "%s", json.NewEncoder(w).Encode(target))
+	log.Infof(ctx, fmt.Sprintf("Value: %v", target.RepoName))
+	reMarshalled, err := json.Marshal(target)
+	if err != nil {
+		log.Errorf(ctx, "Issue marshalling json to string %v", err)
+	}
+	fmt.Fprintf(w, "Got to %v", fmt.Sprintf("%v\n", string(reMarshalled)))
 }

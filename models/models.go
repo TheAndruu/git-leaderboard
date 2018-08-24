@@ -2,13 +2,13 @@ package models
 
 // RepoStats contains stats for a git repo
 type RepoStats struct {
-	RepoName string        `json:"company,string"`
-	RepoURL  string        `json:"repoUrl,string"`
-	Commits  []CommitCount `json:"commitCount,CommitCount"`
+	RepoName string        `json:"repoName"`
+	RepoURL  string        `json:"repoUrl"`
+	Commits  []CommitCount `json:"commits"`
 }
 
 // CommitCount represents a count and author
 type CommitCount struct {
-	Author     string `json:"author,string"`
-	NumCommits int    `json:"numCommits,int"`
+	Author     string `json:"author"`
+	NumCommits int    `json:"numCommits"`
 }
