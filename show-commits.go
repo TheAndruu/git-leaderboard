@@ -24,15 +24,13 @@ func main() {
 /** Queries git to determine the name and remote url of the repo */
 func getRepoOriginsFromGit() models.RepoStats {
 
-	repoURL := "www.foo"
-
 	// could also use basename here, but fear it wouldn't be on everyone's machine
 	repoNameOut, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Please run this command from within an existing git repository")
 		fmt.Fprintln(os.Stderr, "And ensure you have git installed")
 		fmt.Fprintln(os.Stderr, "There was an error running the git command: ", err)
-		os.Exit(2)
+		os.Exit(4)
 	}
 
 	// lob off everything up to and including the last slash
@@ -45,24 +43,21 @@ func getRepoOriginsFromGit() models.RepoStats {
 	}
 	repoNameStr = splitName[len(splitName)-1]
 
+	//Now get and supply repoUrl
+	repoURLOut, err := exec.Command("git", "remote", "get-url", "--push", "origin").Output()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Please ensure the git repo has an upstream origin")
+		fmt.Fprintln(os.Stderr, "There was an issue getting the remote git URL: ", err)
+		os.Exit(5)
+	}
+	repoURLStr := string(repoURLOut)
+
 	// fmt.Println(fmt.Sprintf("Got: %s", repoNameStr))
 	// os.Exit(9)
 
-	// TODO: now get and supply repoUrl
+	fmt.Println("The url is: " + repoURLStr)
 
-	stats := models.RepoStats{RepoName: repoNameStr, RepoURL: repoURL}
-	return stats
-}
-func initStatsFromArgs() models.RepoStats {
-	args := os.Args[1:]
-	if len(args) != 2 {
-		fmt.Fprintln(os.Stderr, "Please enter 2 parameters: the project name and its URL, for example:")
-		fmt.Fprintln(os.Stderr, "")
-		fmt.Fprintln(os.Stderr, "    git-leaderboard \"golongpoll\" \"https://github.com/jcuga/golongpoll\"")
-		fmt.Fprintln(os.Stderr, "")
-		os.Exit(1)
-	}
-	stats := models.RepoStats{RepoName: args[0], RepoURL: args[1]}
+	stats := models.RepoStats{RepoName: repoNameStr, RepoURL: repoURLStr}
 	return stats
 }
 
