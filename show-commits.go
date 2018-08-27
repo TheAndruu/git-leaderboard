@@ -40,9 +40,9 @@ func getRepoOriginsFromGit() models.RepoStats {
 	var splitName []string
 
 	if runtime.GOOS == "windows" {
-		splitName = strings.Split(repoNameStr, "/")
-	} else {
 		splitName = strings.Split(repoNameStr, "\\")
+	} else {
+		splitName = strings.Split(repoNameStr, "/")
 	}
 
 	repoNameStr = splitName[len(splitName)-1]
@@ -99,27 +99,33 @@ func getRepoCommits() []models.CommitCount {
 func submitRepoStats(repoStats *models.RepoStats) {
 	fmt.Println("Submitting stats to leaderboard")
 	fmt.Println("Project name: " + repoStats.RepoName)
-	fmt.Println("Project URL: " + repoStats.RepoURL)
+	fmt.Println("Remote push origin: " + repoStats.RepoURL)
 	url := "https://backend-gl.appspot.com/repostats"
 	//url := " http://localhost:8080/repostats"
 
 	jsonValue, _ := json.Marshal(repoStats)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
-
 	if err != nil {
+		fmt.Fprintln(os.Stderr, "")
+		fmt.Fprintln(os.Stderr, "Trouble sending stats to the remote leaderboard ", err)
+		fmt.Fprintln(os.Stderr, "Perhaps there is an issue with the internet connection.")
+		fmt.Fprintln(os.Stderr, "")
+		os.Exit(5)
 		panic(err)
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("response Status:", resp.Status)
 	if resp.Status == "201 Created" {
+		fmt.Println("")
 		fmt.Println("Successfully submitted the git stats!")
 		fmt.Println("Check out your standings at https://backend-gl.appspot.com")
+		fmt.Println("")
 	} else {
-		fmt.Fprintln(os.Stderr, "Trouble sending git stats to the leaderboard: ", err)
-		fmt.Fprintln(os.Stderr, "Perhaps the server is down... please wait then try again")
+		fmt.Fprintln(os.Stderr, "")
+		fmt.Fprintln(os.Stderr, "Trouble sending git stats to the leaderboard.")
 		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println("response Body:", string(body))
-		os.Exit(5)
+		fmt.Fprintln(os.Stderr, "Response:", string(body))
+		fmt.Fprintln(os.Stderr, "")
+		os.Exit(6)
 	}
 }
