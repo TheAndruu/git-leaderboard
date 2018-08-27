@@ -35,7 +35,7 @@ func getRepoOriginsFromGit() models.RepoStats {
 	}
 
 	// lob off everything up to and including the last slash
-	repoNameStr := string(repoNameOut)
+	repoNameStr := strings.TrimSpace(string(repoNameOut))
 	var splitName []string
 	if strings.Contains(repoNameStr, "/") {
 		splitName = strings.Split(repoNameStr, "/")
@@ -51,7 +51,7 @@ func getRepoOriginsFromGit() models.RepoStats {
 		fmt.Fprintln(os.Stderr, "There was an issue getting the remote git URL: ", err)
 		os.Exit(2)
 	}
-	repoURLStr := string(repoURLOut)
+	repoURLStr := strings.TrimSpace(string(repoURLOut))
 	stats := models.RepoStats{RepoName: repoNameStr, RepoURL: repoURLStr}
 	return stats
 }
@@ -89,7 +89,8 @@ func getRepoCommits() []models.CommitCount {
 
 func submitRepoStats(repoStats *models.RepoStats) {
 	fmt.Println("Submitting stats to leaderboard")
-
+	fmt.Println("Project name: " + repoStats.RepoName)
+	fmt.Println("Project URL: " + repoStats.RepoURL)
 	url := "https://backend-gl.appspot.com/repostats"
 	//url := " http://localhost:8080/repostats"
 
