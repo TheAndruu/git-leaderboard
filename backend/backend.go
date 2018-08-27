@@ -38,6 +38,10 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 		log.Errorf(ctx, "Issue marshalling json to string %v", err)
 	}
 	log.Infof(ctx, pretty.Sprintf(string(reMarshalled)))
+
+	values := map[string]string{"message": fmt.Sprintf("thanks for the message from %s", target.RepoName)}
+	asBytes, _ := json.Marshal(values)
+	w.Write(asBytes)
 }
 
 // TODO Next:

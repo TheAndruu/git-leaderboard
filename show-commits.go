@@ -1,14 +1,17 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"os/exec"
 	"strconv"
 	"strings"
 
 	"github.com/TheAndruu/git-leaderboard/models"
-	"github.com/kr/pretty"
 )
 
 func main() {
@@ -61,5 +64,22 @@ func getRepoCommits() []models.CommitCount {
 
 func submitRepoStats(repoStats *models.RepoStats) {
 	fmt.Println("Got here again")
-	pretty.Print(repoStats)
+
+	url := "https://backend-gl.appspot.com/repostats"
+	//url := " http://localhost:8080/repostats"
+
+	fmt.Println("URL:>", url)
+
+	jsonValue, _ := json.Marshal(repoStats)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
+
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
 }
