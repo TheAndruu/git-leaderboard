@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-	// TODO: Exit and show error message if run from non-git directory
 	repoStats := getRepoOriginsFromGit()
 	repoStats.Commits = getRepoCommits()
 	submitRepoStats(&repoStats)
@@ -30,7 +29,7 @@ func getRepoOriginsFromGit() models.RepoStats {
 		fmt.Fprintln(os.Stderr, "Please run this command from within an existing git repository")
 		fmt.Fprintln(os.Stderr, "And ensure you have git installed")
 		fmt.Fprintln(os.Stderr, "There was an error running the git command: ", err)
-		os.Exit(4)
+		os.Exit(1)
 	}
 
 	// lob off everything up to and including the last slash
@@ -48,15 +47,9 @@ func getRepoOriginsFromGit() models.RepoStats {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Please ensure the git repo has an upstream origin")
 		fmt.Fprintln(os.Stderr, "There was an issue getting the remote git URL: ", err)
-		os.Exit(5)
+		os.Exit(2)
 	}
 	repoURLStr := string(repoURLOut)
-
-	// fmt.Println(fmt.Sprintf("Got: %s", repoNameStr))
-	// os.Exit(9)
-
-	fmt.Println("The url is: " + repoURLStr)
-
 	stats := models.RepoStats{RepoName: repoNameStr, RepoURL: repoURLStr}
 	return stats
 }
@@ -64,15 +57,14 @@ func getRepoOriginsFromGit() models.RepoStats {
 func getRepoCommits() []models.CommitCount {
 	cmdOut, err := exec.Command("git", "shortlog", "master", "--summary", "--numbered").Output()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "There was an error running the git command: ", err)
-		os.Exit(2)
+		fmt.Fprintln(os.Stderr, "There was an error checking the commit stats: ", err)
+		os.Exit(3)
 	}
 
 	shortLogString := string(cmdOut)
 	fmt.Println(fmt.Sprintf("Stats from the git repo, nice job! \n%s", shortLogString))
 
 	commitLines := strings.Split(shortLogString, "\n")
-
 	var commitCounts []models.CommitCount
 
 	for _, element := range commitLines {
@@ -84,8 +76,8 @@ func getRepoCommits() []models.CommitCount {
 		author := strings.TrimSpace(commitLine[1])
 		numCommits, err := strconv.Atoi(strings.TrimSpace(commitLine[0]))
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Trouble reading the number of commits for author: ", author, err)
-			os.Exit(3)
+			fmt.Fprintln(os.Stderr, "Trouble parsing the number of commits for author: ", author, err)
+			os.Exit(4)
 		}
 		authorCommit := models.CommitCount{Author: author, NumCommits: numCommits}
 		commitCounts = append(commitCounts, authorCommit)
