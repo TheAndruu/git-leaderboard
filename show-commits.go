@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"runtime"
 	"strconv"
 	"strings"
 
@@ -37,11 +38,13 @@ func getRepoOriginsFromGit() models.RepoStats {
 	// lob off everything up to and including the last slash
 	repoNameStr := strings.TrimSpace(string(repoNameOut))
 	var splitName []string
-	if strings.Contains(repoNameStr, "/") {
+
+	if runtime.GOOS == "windows" {
 		splitName = strings.Split(repoNameStr, "/")
 	} else {
 		splitName = strings.Split(repoNameStr, "\\")
 	}
+
 	repoNameStr = splitName[len(splitName)-1]
 
 	//Now get and supply repoUrl
@@ -66,7 +69,13 @@ func getRepoCommits() []models.CommitCount {
 	shortLogString := string(cmdOut)
 	fmt.Println(fmt.Sprintf("Stats from the git repo, nice job! \n%s", shortLogString))
 
-	commitLines := strings.Split(shortLogString, "\n")
+	var commitLines []string
+	if runtime.GOOS == "windows" {
+		commitLines = strings.Split(shortLogString, "\r\n")
+	} else {
+		commitLines = strings.Split(shortLogString, "\n")
+	}
+
 	var commitCounts []models.CommitCount
 
 	for _, element := range commitLines {
@@ -103,7 +112,14 @@ func submitRepoStats(repoStats *models.RepoStats) {
 	defer resp.Body.Close()
 
 	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	if resp.Status == "201 Created" {
+		fmt.Println("Successfully submitted the git stats!")
+		fmt.Println("Check out your standings at https://backend-gl.appspot.com")
+	} else {
+		fmt.Fprintln(os.Stderr, "Trouble sending git stats to the leaderboard: ", err)
+		fmt.Fprintln(os.Stderr, "Perhaps the server is down... please wait then try again")
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println("response Body:", string(body))
+		os.Exit(5)
+	}
 }
