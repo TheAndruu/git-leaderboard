@@ -15,11 +15,44 @@ import (
 )
 
 func main() {
-	repoStats := initStatsFromArgs()
+	// TODO: Exit and show error message if run from non-git directory
+	repoStats := getRepoOriginsFromGit()
 	repoStats.Commits = getRepoCommits()
 	submitRepoStats(&repoStats)
 }
 
+/** Queries git to determine the name and remote url of the repo */
+func getRepoOriginsFromGit() models.RepoStats {
+
+	repoURL := "www.foo"
+
+	// could also use basename here, but fear it wouldn't be on everyone's machine
+	repoNameOut, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Please run this command from within an existing git repository")
+		fmt.Fprintln(os.Stderr, "And ensure you have git installed")
+		fmt.Fprintln(os.Stderr, "There was an error running the git command: ", err)
+		os.Exit(2)
+	}
+
+	// lob off everything up to and including the last slash
+	repoNameStr := string(repoNameOut)
+	var splitName []string
+	if strings.Contains(repoNameStr, "/") {
+		splitName = strings.Split(repoNameStr, "/")
+	} else {
+		splitName = strings.Split(repoNameStr, "\\")
+	}
+	repoNameStr = splitName[len(splitName)-1]
+
+	// fmt.Println(fmt.Sprintf("Got: %s", repoNameStr))
+	// os.Exit(9)
+
+	// TODO: now get and supply repoUrl
+
+	stats := models.RepoStats{RepoName: repoNameStr, RepoURL: repoURL}
+	return stats
+}
 func initStatsFromArgs() models.RepoStats {
 	args := os.Args[1:]
 	if len(args) != 2 {
