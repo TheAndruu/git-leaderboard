@@ -4,7 +4,6 @@ import "time"
 
 // RepoStats contains stats for a git repo
 type RepoStats struct {
-	ID         string        `json:"id"`
 	RepoName   string        `json:"repoName"`
 	RepoURL    string        `json:"repoUrl"`
 	Commits    []CommitCount `json:"commits"`

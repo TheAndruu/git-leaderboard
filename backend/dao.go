@@ -22,6 +22,5 @@ func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, erro
 		return "", err
 	}
 	idString := fullKey.StringID()
-	statsToSave.ID = idString
 	return idString, nil
 }
