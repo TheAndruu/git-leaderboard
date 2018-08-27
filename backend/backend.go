@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/TheAndruu/git-leaderboard/models"
+	"github.com/kr/pretty"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
@@ -25,6 +26,8 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	target := models.RepoStats{}
 	json.NewDecoder(r.Body).Decode(&target)
 
+	defer r.Body.Close()
+
 	// Write content-type, statuscode, payload
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
@@ -34,5 +37,9 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Errorf(ctx, "Issue marshalling json to string %v", err)
 	}
-	fmt.Fprintf(w, "%v", string(reMarshalled))
+	log.Infof(ctx, pretty.Sprintf(string(reMarshalled)))
 }
+
+// TODO Next:
+// save the object in the db
+//
