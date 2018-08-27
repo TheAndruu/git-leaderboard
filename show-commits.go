@@ -18,6 +18,8 @@ func main() {
 	repoStats := getRepoOriginsFromGit()
 	repoStats.Commits = getRepoCommits()
 	submitRepoStats(&repoStats)
+
+	// TODO: Show URL of the leaderboard UI
 }
 
 /** Queries git to determine the name and remote url of the repo */
@@ -86,12 +88,10 @@ func getRepoCommits() []models.CommitCount {
 }
 
 func submitRepoStats(repoStats *models.RepoStats) {
-	fmt.Println("Got here again")
+	fmt.Println("Submitting stats to leaderboard")
 
 	url := "https://backend-gl.appspot.com/repostats"
 	//url := " http://localhost:8080/repostats"
-
-	fmt.Println("URL:>", url)
 
 	jsonValue, _ := json.Marshal(repoStats)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
