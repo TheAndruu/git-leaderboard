@@ -7,15 +7,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kr/pretty"
-
 	"github.com/TheAndruu/git-leaderboard/models"
+	"github.com/kr/pretty"
 )
 
 func main() {
 	repoStats := initStatsFromArgs()
 	repoStats.Commits = getRepoCommits()
-	pretty.Print(repoStats)
+	submitRepoStats(&repoStats)
 }
 
 func initStatsFromArgs() models.RepoStats {
@@ -58,4 +57,9 @@ func getRepoCommits() []models.CommitCount {
 		commitCounts = append(commitCounts, authorCommit)
 	}
 	return commitCounts
+}
+
+func submitRepoStats(repoStats *models.RepoStats) {
+	fmt.Println("Got here again")
+	pretty.Print(repoStats)
 }
