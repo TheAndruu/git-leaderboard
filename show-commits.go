@@ -40,7 +40,10 @@ func getRepoCommits() []models.CommitCount {
 		os.Exit(2)
 	}
 
-	commitLines := strings.Split(string(cmdOut), "\n")
+	shortLogString := string(cmdOut)
+	fmt.Println(fmt.Sprintf("Stats from the git repo, nice job! \n%s", shortLogString))
+
+	commitLines := strings.Split(shortLogString, "\n")
 
 	var commitCounts []models.CommitCount
 
