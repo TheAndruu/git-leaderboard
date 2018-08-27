@@ -28,6 +28,8 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 
+	SaveStats(ctx, &target)
+
 	// Write content-type, statuscode, payload
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)

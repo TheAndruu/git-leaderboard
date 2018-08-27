@@ -1,10 +1,14 @@
 package models
 
+import "time"
+
 // RepoStats contains stats for a git repo
 type RepoStats struct {
-	RepoName string        `json:"repoName"`
-	RepoURL  string        `json:"repoUrl"`
-	Commits  []CommitCount `json:"commits"`
+	ID         string        `json:"id"`
+	RepoName   string        `json:"repoName"`
+	RepoURL    string        `json:"repoUrl"`
+	Commits    []CommitCount `json:"commits"`
+	DateUpated time.Time     `json:"dateUpdated"`
 }
 
 // CommitCount represents a count and author
