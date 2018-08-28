@@ -43,7 +43,7 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, fmt.Sprintf("Created stats with id %d", id))
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
-	values := map[string]string{"message": fmt.Sprintf("thanks for the message from %s", target.RepoName)}
+	values := map[string]string{"message": fmt.Sprintf("Successfully stored stats for %s", target.RepoName)}
 	asBytes, _ := json.Marshal(values)
 	w.Write(asBytes)
 }

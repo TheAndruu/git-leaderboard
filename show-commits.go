@@ -115,17 +115,26 @@ func submitRepoStats(repoStats *models.RepoStats) {
 	}
 	defer resp.Body.Close()
 
+	body, _ := ioutil.ReadAll(resp.Body)
+	var rehydrated map[string]string
+	err = json.Unmarshal(body, &rehydrated)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Couldn't read the response from the server ", err)
+		os.Exit(6)
+	}
+
 	if resp.Status == "201 Created" {
 		fmt.Println("")
 		fmt.Println("Successfully submitted the git stats!")
+		fmt.Println(rehydrated["message"])
 		fmt.Println("Check out your standings at https://backend-gl.appspot.com")
 		fmt.Println("")
 	} else {
 		fmt.Fprintln(os.Stderr, "")
 		fmt.Fprintln(os.Stderr, "Trouble sending git stats to the leaderboard.")
-		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Fprintln(os.Stderr, rehydrated["message"])
 		fmt.Fprintln(os.Stderr, "Response:", string(body))
 		fmt.Fprintln(os.Stderr, "")
-		os.Exit(6)
+		os.Exit(7)
 	}
 }
