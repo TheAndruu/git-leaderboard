@@ -3,20 +3,38 @@ package backend
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/TheAndruu/git-leaderboard/models"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
 
+var templates = make(map[string]*template.Template)
+
 func init() {
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/repostats", saveRepoPost)
+	initializeTemplates()
+	defineRoutes()
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello cruel, cruel world!")
+func defineRoutes() {
+	http.HandleFunc("/repostats", saveRepoPost)
+	http.HandleFunc("/", welcomeHandler)
+}
+
+// Base template is 'theme.html'  Can add any variety of content fillers in /layouts directory
+func initializeTemplates() {
+	layouts, err := filepath.Glob("templates/*.html")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Issue setting up templates ", err)
+	}
+
+	for _, layout := range layouts {
+		templates[filepath.Base(layout)] = template.Must(template.ParseFiles(layout, "templates/layouts/theme.html"))
+	}
 }
 
 func saveRepoPost(w http.ResponseWriter, r *http.Request) {
@@ -48,4 +66,18 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	values := map[string]string{"message": fmt.Sprintf("Successfully stored stats for %s", target.RepoName)}
 	asBytes, _ := json.Marshal(values)
 	w.Write(asBytes)
+}
+
+// A Welcome message with title, demonstrates passing data to a template
+type Welcome struct {
+	Title   string
+	Message string
+}
+
+// A template taking a struct pointer (&message) containing data to render
+func welcomeHandler(w http.ResponseWriter, r *http.Request) {
+	message := Welcome{Title: "Bootstrap, Go, and GAE", Message: "Bootstrap added to Golang on App Engine.  Feel free to customize further"}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["welcome.html"].ExecuteTemplate(w, "outerTheme", &message)
 }

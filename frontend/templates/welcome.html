@@ -1,0 +1,15 @@
+{{ define "content" }}
+
+    <div class="row">
+        <div class="one-half column" style="margin-top: 25%">
+            <h4>{{printf "%s" .Title}}!</h4>
+            <p>{{printf "%s" .Message}}!</p>
+        </div>
+    </div>
+
+{{ end }}
+
+{{ define "head" }}
+  <!--Show ability to set title with the same data-->
+  <title>{{printf "%s" .Title}}!</title>
+{{ end }}
