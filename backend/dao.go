@@ -10,17 +10,16 @@ import (
 )
 
 // SaveStats sets the time and saves stats to the datastore
-func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, error) {
-
-	log.Infof(ctx, "Savinvg stats to db for %v", statsToSave.RepoName)
+func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (int64, error) {
+	log.Infof(ctx, "Saving stats to db for %v", statsToSave.RepoName)
 	partialKey := datastore.NewIncompleteKey(ctx, "RepoStats", nil)
 	statsToSave.DateUpated = time.Now()
 
 	fullKey, err := datastore.Put(ctx, partialKey, statsToSave)
 	if err != nil {
 		log.Errorf(ctx, "datastore.Put: %v", err)
-		return "", err
+		return 0, err
 	}
-	idString := fullKey.StringID()
-	return idString, nil
+
+	return fullKey.IntID(), nil
 }
