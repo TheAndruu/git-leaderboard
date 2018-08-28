@@ -14,28 +14,31 @@ import (
 func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (int64, error) {
 	log.Infof(ctx, "Saving stats to db for %v", statsToSave.RepoName)
 
+	// Update the date of the record
+	statsToSave.DateUpated = time.Now()
+
 	// Query for URL to see if any already exist
 	existingRemoteURLQuery := datastore.NewQuery("RepoStats").
 		Filter("RepoURL =", statsToSave.RepoURL).
 		KeysOnly().Limit(1)
 
-	// inside transaction, get existing key if exists or create new one
-	target := models.RepoStats{}
-	var key *datastore.Key = datastore.NewIncompleteKey(ctx, "RepoStats", nil)
+	// Check if we already have a record with this remote URL
+	var key *datastore.Key
 
-	// Update the date of the record
-	statsToSave.DateUpated = time.Now()
 	err := datastore.RunInTransaction(ctx, func(ctx context.Context) error {
-		// Note: this function's argument ctx shadows the variable ctx from the surrounding function.
+		// This function's argument ctx shadows the variable ctx from the surrounding function.
 
-		// Check if we already have a repo with this remote URL
-		result, err := existingRemoteURLQuery.GetAll(ctx, target)
+		// last parameter is ignored because it's a keys-only query
+		existingKeys, err := existingRemoteURLQuery.GetAll(ctx, new(models.RepoStats))
 		isNewKey := true
-		if len(result) > 0 {
+		if len(existingKeys) > 0 {
 			log.Infof(ctx, "Update existing record vice new key")
 			// use existing key
-			key = result[0]
+			key = existingKeys[0]
 			isNewKey = false
+		} else {
+			log.Infof(ctx, "No existing key found, use new key")
+			key = datastore.NewIncompleteKey(ctx, "RepoStats", nil)
 		}
 
 		// Now have the key, put the new target record in place
