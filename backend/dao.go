@@ -16,7 +16,7 @@ func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, erro
 	partialKey := datastore.NewIncompleteKey(ctx, "RepoStats", nil)
 	statsToSave.DateUpated = time.Now()
 
-	fullKey, err := datastore.Put(ctx, partialKey, &statsToSave)
+	fullKey, err := datastore.Put(ctx, partialKey, statsToSave)
 	if err != nil {
 		log.Errorf(ctx, "datastore.Put: %v", err)
 		return "", err
