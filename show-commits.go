@@ -100,8 +100,8 @@ func submitRepoStats(repoStats *models.RepoStats) {
 	fmt.Println("Submitting stats to leaderboard")
 	fmt.Println("Project name: " + repoStats.RepoName)
 	fmt.Println("Remote push origin: " + repoStats.RepoURL)
-	url := "https://backend-gl.appspot.com/repostats"
-	//url := "http://localhost:8080/repostats"
+	//url := "https://backend-gl.appspot.com/repostats"
+	url := "http://localhost:8080/repostats"
 
 	jsonValue, _ := json.Marshal(repoStats)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
