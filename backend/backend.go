@@ -26,6 +26,8 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&target)
 	defer r.Body.Close()
 
+	// TODO: Add validation on the fields of the struct - strip out anything not valid
+
 	// Save the data
 	log.Infof(ctx, fmt.Sprintf("Accepting repo name: %v", target.RepoName))
 	id, err := SaveStats(ctx, &target)
