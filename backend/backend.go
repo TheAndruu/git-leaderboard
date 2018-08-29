@@ -27,13 +27,13 @@ func defineRoutes() {
 
 // Base template is 'theme.html'  Can add any variety of content fillers in /layouts directory
 func initializeTemplates() {
-	layouts, err := filepath.Glob("../frontend/templates/*.html")
+	layouts, err := filepath.Glob("static/templates/*.html")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Issue setting up templates ", err)
 	}
 
 	for _, layout := range layouts {
-		templates[filepath.Base(layout)] = template.Must(template.ParseFiles(layout, "../frontend/templates/layouts/theme.html"))
+		templates[filepath.Base(layout)] = template.Must(template.ParseFiles(layout, "static/templates/layouts/theme.html"))
 	}
 }
 
