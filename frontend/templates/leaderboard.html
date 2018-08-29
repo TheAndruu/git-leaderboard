@@ -2,8 +2,14 @@
 
     <div class="row" style="margin-top: 6%">
         <div class="one-half column">
-            <h4>{{printf "%s" .Title}}!</h4>
-            <p>{{printf "%s" .Message}}!</p>
+                {{range $i, $x := $}}
+                    Name={{$x.RepoName}} 
+                    URL={{$x.RepoURL}}  
+                 {{end}}
+
+                
+            <!-- <h4>{{printf "%s" .Title}}!</h4>
+            <p>{{printf "%s" .Message}}!</p> -->
         </div>
     </div>
 

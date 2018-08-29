@@ -31,12 +31,12 @@ func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, erro
 }
 
 // GetRecentRepoStats returns up to the specified limit of most recently-updated RepoStats
-func GetRecentRepoStats(ctx context.Context, limit int) *models.RepoStats {
+func GetRecentRepoStats(ctx context.Context, limit int) *[]models.RepoStats {
 
 	query := datastore.NewQuery("RepoStats").Order("-DateUpdated").Limit(limit)
 
-	results := models.RepoStats{}
-	_, err := query.GetAll(ctx, results)
+	var results []models.RepoStats
+	_, err := query.GetAll(ctx, &results)
 
 	if err != nil {
 		log.Errorf(ctx, "Issue querying most recent RepoStats: %v", err)
