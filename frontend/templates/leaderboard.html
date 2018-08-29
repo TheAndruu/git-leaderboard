@@ -10,7 +10,12 @@
         
         {{range .}}
             <div class="one-third column">
-                <a href="{{.RepoURL}}" target="_blank">{{.RepoName}}</a>
+                <a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
+                <ol>
+                    {{range .Commits}}
+                    <li>{{ .Author}} - {{.NumCommits}}</li>
+                    {{end}}
+                </ol>
             </div>
         {{end}}    
         
