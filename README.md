@@ -1,21 +1,27 @@
 # git-leaderboard
 
-Share projects' git stats and compete on the leaderboard
+Share projects' git stats and compete on the leaderboard!
 
-Runs `git shortlog --numbered --summary` on a local git repository. Submits the commit stats to a central leaderboard to compete.
+View the centralized leaderboard at: [Git Commit Leaderboard](http://backend-gl.appspot.com/)
 
-## Pre-requisites
+## To submit stats for a repo
+
+It's easy as downloading the binary and running it from any local git repo on your machine.
+
+### Pre-requisites
 
 Must have 'git' installed on the machine
 
-## To run
+### To run
 
-If you have golang installed on your local machine, execute: 
+Download the binary executable [show-commits](show-commits)
+
+Open a Terminal session to the root of a git repository and execute the downloaded file.
+
+Repo stats will be printed on the screen and submitted to the central leaderboard.
+
+Alternatively, if you have golang installed on your local machine, you can execute:
 
      go get github.com/TheAndruu/git-leaderboard
 
-Then run the code as normal with `go build` and `go run`
-
-## Will update with downloadable binaries
-
-git shortlog -sn
+Then navigate to the directory where you fetched the code and install the project  `go install show-commits.go`.  If you have $GOBIN set up correctly, you should be able to run `show-commits` from any git repo on your machine.
