@@ -1,15 +1,8 @@
 {{ define "content" }}
 
-Can you see me
-    <div class="row" style="margin-top: 6%">
-        This is what you should see
-        <div class="one-half column">
-                {{range $i, $x := $}}
-                    Name={{$x.RepoName}} 
-                    URL={{$x.RepoURL}}  
-                 {{end}}
-
-                
+You should see this
+    <div class="row">
+        <div class="one-half column" style="margin-top: 6%">
             <!-- <h4>{{printf "%s" .Title}}!</h4>
             <p>{{printf "%s" .Message}}!</p> -->
         </div>
@@ -19,5 +12,5 @@ Can you see me
 
 {{ define "head" }}
   <!--Show ability to set title with the same data-->
-  <title>{{printf "%s" .Title}}!</title>
+  <title>Most Recent Submitters</title>
 {{ end }}

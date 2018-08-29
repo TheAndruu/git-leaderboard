@@ -41,7 +41,5 @@ func GetRecentRepoStats(ctx context.Context, limit int) *[]models.RepoStats {
 		log.Errorf(ctx, "Issue querying most recent RepoStats: %v", err)
 	}
 
-	log.Infof(ctx, "Length of the results is %v", len(results))
-
 	return &results
 }
