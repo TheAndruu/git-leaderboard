@@ -18,13 +18,12 @@ Download the binary executable [show-commits](https://github.com/TheAndruu/git-l
 
 Then execute the file from a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
 
-For example, if the file was downloaded to your `Downloads` folder:
+For example, if the file was downloaded to your `~/Downloads` folder:
 
-    cd ~/Downloads
-    chmod +x show-commits
     cd ~/git/some-git-project-to-analyze
     cp ~/Downloads/show-commits .
-    show-commits
+    chmod +x show-commits
+    ./show-commits
 
 Repo stats will be printed on the screen and submitted to the central leaderboard.
 
