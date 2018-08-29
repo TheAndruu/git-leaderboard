@@ -3,6 +3,9 @@
 You should see this
     <div class="row">
         <div class="one-half column" style="margin-top: 6%">
+            {{range .}}
+                Name: {{.RepoName}}
+            {{end}}
             <!-- <h4>{{printf "%s" .Title}}!</h4>
             <p>{{printf "%s" .Message}}!</p> -->
         </div>
