@@ -1,6 +1,10 @@
 package backend
 
-import "net/http"
+import (
+	"net/http"
+
+	"google.golang.org/appengine"
+)
 
 // A Welcome message with title, demonstrates passing data to a template
 type Welcome struct {
@@ -18,8 +22,11 @@ func welcomeHandler(w http.ResponseWriter, r *http.Request) {
 
 // Shows the leaders in the current git repos
 func showLeaders(w http.ResponseWriter, r *http.Request) {
-	message := Welcome{Title: "Skeleton, Go, and GAE", Message: "Bootstrap added to Golang on App Engine.  Feel free to customize further"}
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetRecentRepoStats(ctx, 10)
 
 	// outerTheme refernces the template defined within theme.html
-	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", &message)
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", &recentStats)
 }
