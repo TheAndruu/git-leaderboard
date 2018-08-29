@@ -1,10 +1,9 @@
 {{ define "content" }}
 
-You should see this
     <div class="row">
         <div class="one-half column" style="margin-top: 6%">
             {{range .}}
-                Name: {{.RepoName}}
+                <a href="{{.RepoURL}}">{{.RepoName}}</a>
             {{end}}
             <!-- <h4>{{printf "%s" .Title}}!</h4>
             <p>{{printf "%s" .Message}}!</p> -->
