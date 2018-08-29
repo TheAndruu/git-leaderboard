@@ -14,7 +14,7 @@ Must have 'git' installed on the machine
 
 ### To run
 
-Download the binary executable [show-commits](show-commits)
+Download the binary executable [show-commits](https://github.com/TheAndruu/git-leaderboard/raw/master/show-commits)
 
 Open a Terminal session to the root of a git repository and execute the downloaded file.
 
