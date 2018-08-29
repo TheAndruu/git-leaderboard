@@ -15,3 +15,11 @@ func welcomeHandler(w http.ResponseWriter, r *http.Request) {
 	// outerTheme refernces the template defined within theme.html
 	templates["welcome.html"].ExecuteTemplate(w, "outerTheme", &message)
 }
+
+// Shows the leaders in the current git repos
+func showLeaders(w http.ResponseWriter, r *http.Request) {
+	message := Welcome{Title: "Skeleton, Go, and GAE", Message: "Bootstrap added to Golang on App Engine.  Feel free to customize further"}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", &message)
+}

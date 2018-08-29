@@ -22,7 +22,7 @@ func init() {
 
 func defineRoutes() {
 	http.HandleFunc("/repostats", saveRepoPost)
-	http.HandleFunc("/", welcomeHandler)
+	http.HandleFunc("/", showLeaders)
 }
 
 // Base template is 'theme.html'  Can add any variety of content fillers in /layouts directory
