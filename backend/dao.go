@@ -14,8 +14,8 @@ import (
 func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, error) {
 	log.Infof(ctx, "Saving stats to db for %v", statsToSave.RepoName)
 
+	statsToSave.DateUpdated = time.Now()
 	// Update the date of the record
-	statsToSave.DateUpated = time.Now()
 
 	// Create a new key using the URL of the repo as the string name
 	key := datastore.NewKey(ctx, "RepoStats", statsToSave.RepoURL, 0, nil)
@@ -37,10 +37,11 @@ func GetRecentRepoStats(ctx context.Context, limit int) *[]models.RepoStats {
 
 	var results []models.RepoStats
 	_, err := query.GetAll(ctx, &results)
-
 	if err != nil {
 		log.Errorf(ctx, "Issue querying most recent RepoStats: %v", err)
 	}
+
+	log.Infof(ctx, "Length of the results is %v", len(results))
 
 	return &results
 }

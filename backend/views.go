@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
 )
 
 // A Welcome message with title, demonstrates passing data to a template
@@ -26,6 +27,8 @@ func showLeaders(w http.ResponseWriter, r *http.Request) {
 
 	// get the 10 most recent RepoStats
 	recentStats := GetRecentRepoStats(ctx, 10)
+
+	log.Infof(ctx, "Got the stats %v", len(*recentStats))
 
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", &recentStats)
