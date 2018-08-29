@@ -1,18 +1,24 @@
 {{ define "content" }}
 
-    <div class="row">
-        <div class="one-half column" style="margin-top: 6%">
-            {{range .}}
-                <a href="{{.RepoURL}}">{{.RepoName}}</a>
-            {{end}}
-            <!-- <h4>{{printf "%s" .Title}}!</h4>
-            <p>{{printf "%s" .Message}}!</p> -->
-        </div>
+    <style>
+        a:hover {
+            background-color: lightcyan
+        }
+    </style>
+
+    <div class="row" style="margin-top: 6%">
+        
+        {{range .}}
+            <div class="one-third column">
+                <a href="{{.RepoURL}}" target="_blank">{{.RepoName}}</a>
+            </div>
+        {{end}}    
+        
     </div>
 
 {{ end }}
 
 {{ define "head" }}
   <!--Show ability to set title with the same data-->
-  <title>Most Recent Submitters</title>
+  <title>Most Recent Git Committer Stats</title>
 {{ end }}
