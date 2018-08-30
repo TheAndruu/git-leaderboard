@@ -4,21 +4,27 @@ Share projects' git stats and compete on the leaderboard!
 
 View the centralized leaderboard at: [Git Commit Leaderboard](https://backend-gl.appspot.com/)
 
-## To submit stats for a repo
+## What the client executable does
 
-It's easy as downloading the binary and running it from any local git repo on your machine.
+The client executable lists all authors with commits in the current repository and the number of commits each has, ranked from high to low.  
+
+It then publishes the name of the git repo, it's remote origin, and the author commit stats to the [Git Commit Leaderboard](https://backend-gl.appspot.com/).
 
 ## Pre-requisites
 
 Must have 'git' installed on the machine
 
-## Running on linux
+**Note on the instructions below:**
 
-* [Linux](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits)
+Rather than copy the executables to the git repository, consider moving it to a folder on your $PATH, such as `sudo mv ~/Downloads/show-commits /usr/bin`.  This way you can run `show-commits` from anywhere on your machine.
 
-Then execute the file from a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
+## Running on Linux
 
-For example, if the file was downloaded to your `~/Downloads` folder on Linux:
+Download the [Linux executable](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits)
+
+Then run it within a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
+
+For example, if the file was downloaded to your `~/Downloads` folder, run:
 
     cd ~/git/some-git-project-to-analyze
     cp ~/Downloads/show-commits .
@@ -27,23 +33,39 @@ For example, if the file was downloaded to your `~/Downloads` folder on Linux:
 
 ## Running on Mac OSX
 
-* [MacOSX](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits-mac)
+Download the [Mac OSX executable](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits-mac)
+
+Then run it within a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
+
+For example, if the file was downloaded to your `~/Downloads` folder, run:
+
+    cd ~/git/some-git-project-to-analyze
+    cp ~/Downloads/show-commits-mac .
+    chmod +x show-commits-mac
+    ./show-commits-mac
 
 ## Running on Windows
 
-* [Windows](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits.exe)
+Download the [Windows executable](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits.exe)
 
+Then copy `show-commits.exe` to a git repository on your local machine.  
 
-Repo stats will be printed on the screen and submitted to the central leaderboard.
+Open a command prompt to that git repository and execute: `show-commits.exe`.
 
-Instead of copying `show-commits` to your local git repo, consider dropping it in a folder on your $PATH, such as `sudo mv ~/Downloads/show-commits /usr/bin`.  This way you can run `show-commits` from anywhere on your machine.
+## Running from go
 
-### To run from go
-
-Alternatively, if you have golang installed on your local machine, you can execute:
+If you have golang installed on your local machine, you can execute:
 
      go get github.com/TheAndruu/git-leaderboard
      cd $GOPATH/src/github.com/TheAndruu/git-leaderboard
      go install show-commits.go
 
 If you have $GOBIN set up on your $PATH, you can now run `show-commits` from any git repo on your machine.
+
+### Notes
+
+To compile across systems, needed to first locally execute:
+
+     GOOS=linux GOARCH=amd64 go install
+     GOOS=darwin GOARCH=amd64 go install
+     GOOS=windows GOARCH=amd64 go install
