@@ -8,17 +8,13 @@ View the centralized leaderboard at: [Git Commit Leaderboard](https://backend-gl
 
 It's easy as downloading the binary and running it from any local git repo on your machine.
 
-### Pre-requisites
+## Pre-requisites
 
 Must have 'git' installed on the machine
 
-### To run from binary
+## Running on linux
 
-Download the binary executable for your operating system:
-
-* [MacOSX](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits-mac)
 * [Linux](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits)
-* [Windows](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits.exe)
 
 Then execute the file from a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
 
@@ -28,6 +24,15 @@ For example, if the file was downloaded to your `~/Downloads` folder on Linux:
     cp ~/Downloads/show-commits .
     chmod +x show-commits
     ./show-commits
+
+## Running on Mac OSX
+
+* [MacOSX](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits-mac)
+
+## Running on Windows
+
+* [Windows](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits.exe)
+
 
 Repo stats will be printed on the screen and submitted to the central leaderboard.
 
