@@ -64,7 +64,7 @@ If you have $GOBIN set up on your $PATH, you can now run `show-commits` from any
 
 ### Notes
 
-To compile across systems, needed to first locally execute:
+To compile across systems, needed to first execute these commands to install all the windows-amd64 standard packages on your system:
 
      GOOS=linux GOARCH=amd64 go install
      GOOS=darwin GOARCH=amd64 go install
