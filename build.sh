@@ -5,11 +5,7 @@ GOARCH=amd64
 
 # Build windows
 GOOS=windows
-go build -v -o build/show-commits-x64.exe
-
-GOARCH=386
-go build -v -o build/show-commits-x32.exe
-
+go build -v -o build/show-commits.exe
 
 # Build mac
 GOOS=darwin
