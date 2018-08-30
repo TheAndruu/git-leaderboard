@@ -46,6 +46,9 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: Add validation on the fields of the struct - strip out anything not valid
 
+	// TODO:
+	// add fields for the numTotalCommits, numLeadAuthor, percentLeadAuthorToTotal
+
 	// Save the data
 	log.Infof(ctx, fmt.Sprintf("Accepting repo name: %v", target.RepoName))
 	id, err := SaveStats(ctx, &target)
