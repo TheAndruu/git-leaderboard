@@ -2,7 +2,7 @@
 
 Share projects' git stats and compete on the leaderboard!
 
-View the centralized leaderboard at: [Git Commit Leaderboard](http://backend-gl.appspot.com/)
+View the centralized leaderboard at: [Git Commit Leaderboard](https://backend-gl.appspot.com/)
 
 ## To submit stats for a repo
 
