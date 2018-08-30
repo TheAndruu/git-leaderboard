@@ -16,9 +16,9 @@ Must have 'git' installed on the machine
 
 Download the binary executable for your operating system:
 
-* [MacOSX](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits-mac)
-* [Linux](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits)
-* [Windows](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits.exe)
+* [MacOSX](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits-mac)
+* [Linux](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits)
+* [Windows](https://github.com/TheAndruu/git-leaderboard/raw/master/build/show-commits.exe)
 
 Then execute the file from a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
 
