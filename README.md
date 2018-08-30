@@ -14,11 +14,15 @@ Must have 'git' installed on the machine
 
 ### To run from binary
 
-Download the binary executable [show-commits](https://github.com/TheAndruu/git-leaderboard/raw/master/show-commits)
+Download the binary executable for your operating system:
+
+* [MacOSX](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits-mac)
+* [Linux](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits)
+* [Windows](https://github.com/TheAndruu/git-leaderboard/blob/master/build/show-commits.exe)
 
 Then execute the file from a git repository on your local machine.  You may need to make the downloaded binary file executable with: `chmod +x show-commits`
 
-For example, if the file was downloaded to your `~/Downloads` folder:
+For example, if the file was downloaded to your `~/Downloads` folder on Linux:
 
     cd ~/git/some-git-project-to-analyze
     cp ~/Downloads/show-commits .
