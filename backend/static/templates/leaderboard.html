@@ -11,6 +11,14 @@
         {{range .}}
             <div class="one-third column">
                 <a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
+
+                <br/>
+                Total commits: {{.TotalCommits}} <br/>
+                Author count: {{.AuthorCount}}<br/>
+                Lead author total: {{.LeadAuthorTotal}}<br/>
+                Lead author percent: {{.LeadAuthorPercent}}<br/>
+                Average author commits: {{.AverageAuthorCommits}}<br/>
+                Standard Deviation: {{.CommitDeviation}}<br/>
                 <ol>
                     {{range .Commits}}
                     <li>{{ .Author}} - {{.NumCommits}}</li>
