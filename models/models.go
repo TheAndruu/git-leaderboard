@@ -11,15 +11,17 @@ type RepoStats struct {
 
 	//
 	// Server-side stats:
-	TotalCommits    int `json:"totalCommits"`
-	LeadAuthorTotal int `json:"leadAuthorRotal"`
+	TotalCommits int `json:"totalCommits"`
+	// Number of authors
+	AuthorCount     int `json:"authorCount"`
+	LeadAuthorTotal int `json:"leadAuthorTotal"`
 	// Percent out of total number of commits
-	LeadAuthorPercent int `json:"leadAuthorPercent"`
+	LeadAuthorPercent float64 `json:"leadAuthorPercent"`
 	// Average number of commits per author
-	AverageAuthorCommits int `json:"averageAuthorCommits"`
+	AverageAuthorCommits float64 `json:"averageAuthorCommits"`
 	// The standard deviation of commits
 	// https://www.mathsisfun.com/data/standard-deviation.html
-	CommitDeviation int `json:"commitDeviation"`
+	CommitDeviation float64 `json:"commitDeviation"`
 }
 
 // CommitCount represents a count and author

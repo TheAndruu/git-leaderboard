@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
 
 	"github.com/TheAndruu/git-leaderboard/models"
+	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
@@ -48,7 +50,7 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 
 	// TODO:
 	// add fields for the numTotalCommits, numLeadAuthor, percentLeadAuthorToTotal
-	computeStats(&target)
+	computeStats(ctx, &target)
 
 	// Save the data
 	log.Infof(ctx, fmt.Sprintf("Accepting repo name: %v", target.RepoName))
@@ -72,16 +74,44 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	w.Write(asBytes)
 }
 
-func computeStats(*models.RepoStats) {
-	//
-	// // Server-side stats:
-	// TotalCommits    int `json:"totalCommits"`
-	// LeadAuthorTotal int `json:"leadAuthorRotal"`
-	// // Percent out of total number of commits
-	// LeadAuthorPercent int `json:"leadAuthorPercent"`
-	// // Average number of commits per author
-	// AverageAuthorCommits int `json:"averageAuthorCommits"`
-	// // The standard deviation of commits
-	// // https://www.mathsisfun.com/data/standard-deviation.html
-	// CommitDeviation int `json:"commitDeviation"`
+func computeStats(ctx context.Context, stats *models.RepoStats) {
+
+	var totalCommits int
+	var authorCount int
+	var leadAuthorTotal int
+
+	for _, stat := range stats.Commits {
+		log.Infof(ctx, "Got stat %v", stat.NumCommits)
+		// Sum the total number of commits
+		totalCommits += stat.NumCommits
+		// Sum the total number of authors
+		authorCount++
+		// Ensure we set the max commit value
+		if stat.NumCommits > leadAuthorTotal {
+			leadAuthorTotal = stat.NumCommits
+		}
+	}
+
+	// calculate mean and percent
+	totalCommitFloat := float64(totalCommits)
+	leadAuthorPercent := float64(leadAuthorTotal) / totalCommitFloat
+	averageAuthorCommits := totalCommitFloat / float64(authorCount)
+
+	// calculate standard deviation
+	// https://www.mathsisfun.com/data/standard-deviation-formulas.html
+	var sumOfSquaredDifferencesFromMean float64
+	for _, stat := range stats.Commits {
+		diffFromMean := float64(stat.NumCommits) - averageAuthorCommits
+		sumOfSquaredDifferencesFromMean += math.Pow(diffFromMean, 2)
+	}
+	meanOfSquaredDifferences := sumOfSquaredDifferencesFromMean / float64(authorCount)
+	commitDeviation := math.Sqrt(meanOfSquaredDifferences)
+
+	// set the values on the struct
+	stats.AuthorCount = authorCount
+	stats.AverageAuthorCommits = averageAuthorCommits
+	stats.CommitDeviation = commitDeviation
+	stats.LeadAuthorPercent = leadAuthorPercent
+	stats.LeadAuthorTotal = leadAuthorTotal
+	stats.TotalCommits = totalCommits
 }
