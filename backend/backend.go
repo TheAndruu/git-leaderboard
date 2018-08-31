@@ -48,6 +48,7 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 
 	// TODO:
 	// add fields for the numTotalCommits, numLeadAuthor, percentLeadAuthorToTotal
+	computeStats(&target)
 
 	// Save the data
 	log.Infof(ctx, fmt.Sprintf("Accepting repo name: %v", target.RepoName))
@@ -69,4 +70,18 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	values := map[string]string{"message": fmt.Sprintf("Successfully stored stats for %s", target.RepoName)}
 	asBytes, _ := json.Marshal(values)
 	w.Write(asBytes)
+}
+
+func computeStats(*models.RepoStats) {
+	//
+	// // Server-side stats:
+	// TotalCommits    int `json:"totalCommits"`
+	// LeadAuthorTotal int `json:"leadAuthorRotal"`
+	// // Percent out of total number of commits
+	// LeadAuthorPercent int `json:"leadAuthorPercent"`
+	// // Average number of commits per author
+	// AverageAuthorCommits int `json:"averageAuthorCommits"`
+	// // The standard deviation of commits
+	// // https://www.mathsisfun.com/data/standard-deviation.html
+	// CommitDeviation int `json:"commitDeviation"`
 }
