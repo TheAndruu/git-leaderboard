@@ -110,8 +110,12 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 	// set the values on the struct
 	stats.AuthorCount = authorCount
 	stats.AverageAuthorCommits = averageAuthorCommits
-	stats.CommitDeviation = commitDeviation
 	stats.LeadAuthorPercent = leadAuthorPercent
 	stats.LeadAuthorTotal = leadAuthorTotal
 	stats.TotalCommits = totalCommits
+	stats.CommitDeviation = commitDeviation
+	stats.CoefficientVariation = commitDeviation / averageAuthorCommits
+
+	// TODO: add coefficient of variation:
+	// https://en.wikipedia.org/wiki/Coefficient_of_variation
 }

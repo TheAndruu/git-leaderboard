@@ -19,6 +19,7 @@
                 Lead author percent: {{.LeadAuthorPercent}}<br/>
                 Average author commits: {{.AverageAuthorCommits}}<br/>
                 Standard Deviation: {{.CommitDeviation}}<br/>
+                Coefficient Variation: {{.CoefficientVariation}}<br/>
                 <ol>
                     {{range .Commits}}
                     <li>{{ .Author}} - {{.NumCommits}}</li>

@@ -22,6 +22,8 @@ type RepoStats struct {
 	// The standard deviation of commits
 	// https://www.mathsisfun.com/data/standard-deviation.html
 	CommitDeviation float64 `json:"commitDeviation"`
+	// https://en.wikipedia.org/wiki/Coefficient_of_variation
+	CoefficientVariation float64 `json:"coefficientVariation"`
 }
 
 // CommitCount represents a count and author
