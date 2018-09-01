@@ -10,23 +10,10 @@ import (
 
 // RepoStatsPage has a title, subtitle, and list of RepoStats for display
 type RepoStatsPage struct {
-	Title     string
-	SubTitle  string
-	RepoStats *[]models.RepoStats
-}
-
-// A Welcome message with title, demonstrates passing data to a template
-type Welcome struct {
-	Title   string
-	Message string
-}
-
-// A template taking a struct pointer (&message) containing data to render
-func welcomeHandler(w http.ResponseWriter, r *http.Request) {
-	message := Welcome{Title: "Bootstrap, Go, and GAE", Message: "Bootstrap added to Golang on App Engine.  Feel free to customize further"}
-
-	// outerTheme refernces the template defined within theme.html
-	templates["welcome.html"].ExecuteTemplate(w, "outerTheme", &message)
+	Title       string
+	SubTitle    string
+	MenuSection string
+	RepoStats   *[]models.RepoStats
 }
 
 // Shows the leaders in the current git repos
@@ -38,9 +25,10 @@ func showLeaders(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "Got the stats %v", len(*recentStats))
 
 	pageData := RepoStatsPage{
-		Title:     "Latest submissions",
-		SubTitle:  "Top committers in the most recently-submitted repositories",
-		RepoStats: recentStats}
+		Title:       "Latest submissions",
+		SubTitle:    "Top committers in the most recently-submitted repositories",
+		MenuSection: "recently-submitted",
+		RepoStats:   recentStats}
 
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
