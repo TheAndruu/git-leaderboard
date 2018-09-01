@@ -14,8 +14,9 @@
                 {{range .RepoStats}}
 
                 <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-                        <a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
-
+                        
+                    <h3 class="content-subhead"><a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
+                    </h3>
                         <br/>
                         Total commits: {{.TotalCommits}} <br/>
                         Author count: {{.AuthorCount}}<br/>
