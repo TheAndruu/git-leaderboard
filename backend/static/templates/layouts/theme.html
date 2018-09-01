@@ -9,14 +9,13 @@
     <meta name="author" content="Andrew Cuga"> 
     {{ template "head" . }}
 
+    
     <!-- Include the css libraries -->
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/side-menu.css">
     <!--[if lt IE 9]>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
     <![endif]-->
-
-    <script async src="/js/ui.js"></script>
 </head>
 <body>
 
@@ -58,6 +57,8 @@
 </div>
 
 
+    <!-- Include last so the other elements are available -->
+    <script async src="/js/ui.js"></script>
 </body>
 </html>
 
