@@ -36,7 +36,7 @@ func showRecentlySubmitted(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "Got the stats %v", len(*recentStats))
 
 	pageData := RepoStatsPage{
-		Title:       "Latest submissions",
+		Title:       "Recently Submitted",
 		SubTitle:    "Top committers in the most recently-submitted repositories",
 		MenuSection: "recently-submitted",
 		RepoStats:   recentStats}
