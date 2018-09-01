@@ -20,10 +20,10 @@
                         Total commits: {{.TotalCommits}} <br/>
                         Author count: {{.AuthorCount}}<br/>
                         Lead author total: {{.LeadAuthorTotal}}<br/>
-                        Lead author percent: {{.LeadAuthorPercent}}<br/>
-                        Average author commits: {{.AverageAuthorCommits}}<br/>
-                        Standard Deviation: {{.CommitDeviation}}<br/>
-                        Coefficient Variation: {{.CoefficientVariation}}<br/>
+                        Lead author percent: {{printf "%.2f" .LeadAuthorPercent}}<br/>
+                        Average author commits: {{printf "%.2f" .AverageAuthorCommits}}<br/>
+                        Standard Deviation: {{ printf "%.2f" .CommitDeviation}}<br/>
+                        Coefficient Variation: {{printf "%.2f" .CoefficientVariation}}<br/>
                         <ol>
                             {{range .Commits}}
                             <li>{{ .Author}} - {{.NumCommits}}</li>
