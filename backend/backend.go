@@ -24,7 +24,8 @@ func init() {
 
 func defineRoutes() {
 	http.HandleFunc("/repostats", saveRepoPost)
-	http.HandleFunc("/", showLeaders)
+	http.HandleFunc("/recently-submitted", showRecentlySubmitted)
+	http.HandleFunc("/", showHome)
 }
 
 // Base template is 'theme.html'  Can add any variety of content fillers in /layouts directory

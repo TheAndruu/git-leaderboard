@@ -17,7 +17,18 @@ type RepoStatsPage struct {
 }
 
 // Shows the leaders in the current git repos
-func showLeaders(w http.ResponseWriter, r *http.Request) {
+func showHome(w http.ResponseWriter, r *http.Request) {
+	pageData := RepoStatsPage{
+		Title:       "Git Leaderboard",
+		SubTitle:    "Share projects' git stats and compete on the leaderboard!",
+		MenuSection: "home"}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["home.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}
+
+// Shows the leaders in the current git repos
+func showRecentlySubmitted(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	// get the 10 most recent RepoStats
