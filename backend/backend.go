@@ -81,7 +81,6 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 	var leadAuthorTotal int
 
 	for _, stat := range stats.Commits {
-		log.Infof(ctx, "Got stat %v", stat.NumCommits)
 		// Sum the total number of commits
 		totalCommits += stat.NumCommits
 		// Sum the total number of authors
@@ -115,6 +114,10 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 	stats.TotalCommits = totalCommits
 	stats.CommitDeviation = commitDeviation
 	stats.CoefficientVariation = commitDeviation / averageAuthorCommits
+
+	if len(stats.Commits) > 10 {
+		stats.Commits = stats.Commits[:10]
+	}
 
 	// TODO: add coefficient of variation:
 	// https://en.wikipedia.org/wiki/Coefficient_of_variation
