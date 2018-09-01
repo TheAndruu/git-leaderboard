@@ -1,53 +1,66 @@
 {{ define "outerTheme" }}
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Leaderboard showing commits by author for git repositories.">
+    <meta name="author" content="Andrew Cuga"> 
+    {{ template "head" . }}
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <!-- <title>Your page title here :)</title>-->
-  <meta name="description" content="Leaderboard showing commits by author for git repositories.">
-  <meta name="author" content="Andrew Cuga"> 
-  {{ template "head" . }}
+    <!-- Include the css libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/side-menu.css">
+    <!--[if lt IE 9]>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+    <![endif]-->
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/skeleton.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-
+    <script async src="/js/ui.js"></script>
 </head>
 <body>
-    <style>
-    
-    .header {
-        margin-top: 6rem;
-    }
-    </style>
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-      <section class="header"><h2>Git Commit Leaderboard</h2></section>
-    {{ template "content" . }}
-  </div>
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#">Company</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
+
+                <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                    <a href="#" class="pure-menu-link">Services</a>
+                </li>
+
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Page Title</h1>
+            <h2>A subtitle for your page goes here</h2>
+        </div>
+
+        <div class="content">
+            {{ template "content" . }}
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
+
 
 {{ end }} <!-- end of outerTheme -->
 

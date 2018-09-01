@@ -6,6 +6,11 @@ handlers:
   static_dir: static/css
   mime_type: text/css
 
+- url: /(.*\.js)
+  mime_type: text/javascript
+  static_files: static/\1
+  upload: static/(.*\.js)
+
 - url: /(.*\.(gif|png|jpg))
   static_files: static/images/\1
   upload: static/images/(.*\.(gif|png|jpg))
