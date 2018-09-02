@@ -143,3 +143,22 @@ func showHighestAverageCommits(w http.ResponseWriter, r *http.Request) {
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
+
+// Shows the projects with least standard deviation between authors
+func showLowestStandardDeviation(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetStatsOrderedBy(ctx, "CommitDeviation", fetchLimit)
+
+	pageData := RepoStatsPage{
+		Title:          "Least Standard Deviation",
+		SubTitle:       "Lowest Standard Deviation of Commits by Author",
+		ContentHead:    "Authors With Least Standard Deviation in Commits",
+		ContentMessage: "These projects' authors feature the least standard deviation among their commit counts. ",
+		MenuSection:    "lowest-standard-deviation",
+		RepoStats:      recentStats}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}

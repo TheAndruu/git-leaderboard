@@ -32,6 +32,7 @@ func defineRoutes() {
 	http.HandleFunc("/most-single-author", showMostSingleAuthor)
 	http.HandleFunc("/lead-author-highest-percent", showLeadAuthorHighestPercent)
 	http.HandleFunc("/highest-average-commits", showHighestAverageCommits)
+	http.HandleFunc("/lowest-standard-deviation", showLowestStandardDeviation)
 
 	http.HandleFunc("/", showHome)
 }
