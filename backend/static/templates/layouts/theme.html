@@ -42,17 +42,19 @@
 
             <ul class="pure-menu-list">
                 <li class='pure-menu-item  {{ if eq .MenuSection "home" }} pure-menu-selected {{end}}'><a href="/" class="pure-menu-link">Home</a></li>
-
-                <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "most-commits" }} pure-menu-selected {{end}}'><a href="/most-commits" class="pure-menu-link">Most Commits</a></li>
+            
+                <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "recently-submitted" }} pure-menu-selected {{end}}'><a href="/recently-submitted" class="pure-menu-link">Recently Submitted</a></li>
+                <li class='pure-menu-item {{ if eq .MenuSection "most-commits" }} pure-menu-selected {{end}}'><a href="/most-commits" class="pure-menu-link">Most Commits</a></li>
 
                 <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "most-authors" }} pure-menu-selected {{end}}'><a href="/most-authors" class="pure-menu-link">Most Authors</a></li>
                 <li class='pure-menu-item {{ if eq .MenuSection "most-single-author" }} pure-menu-selected {{end}}'><a href="/most-single-author" class="pure-menu-link">Lead Author Commits</a></li>
                 <li class='pure-menu-item {{ if eq .MenuSection "lead-author-highest-percent" }} pure-menu-selected {{end}}'><a href="/lead-author-highest-percent" class="pure-menu-link">Lead Author Percent</a></li>
 
-                <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "highest-average-commits" }} pure-menu-selected {{end}}'><a href="/highest-average-commits" class="pure-menu-link">Highest Average Commits</a></li>
+                <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "least-coefficient-variation" }} pure-menu-selected {{end}}'><a href="/least-coefficient-variation" class="pure-menu-link">Least Variation</a></li>
+                <li class='pure-menu-item {{ if eq .MenuSection "highest-average-commits" }} pure-menu-selected {{end}}'><a href="/highest-average-commits" class="pure-menu-link">Highest Average Commits</a></li>
                 <li class='pure-menu-item {{ if eq .MenuSection "lowest-standard-deviation" }} pure-menu-selected {{end}}'><a href="/lowest-standard-deviation" class="pure-menu-link">Least Standard Deviation</a></li>
                 
-                <li class='pure-menu-item menu-item-divided {{ if eq .MenuSection "recently-submitted" }} pure-menu-selected {{end}}'><a href="/recently-submitted" class="pure-menu-link">Recently Submitted</a></li>
+                
             </ul>
         </div>
     </div>

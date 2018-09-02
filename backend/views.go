@@ -162,3 +162,22 @@ func showLowestStandardDeviation(w http.ResponseWriter, r *http.Request) {
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
+
+// Shows the projects with least coefficient variation
+func showLeastCoefficientVariation(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetStatsOrderedBy(ctx, "CoefficientVariation", fetchLimit)
+
+	pageData := RepoStatsPage{
+		Title:          "Least Coefficient Variation",
+		SubTitle:       "Lowest Variance Coefficient among Authors",
+		ContentHead:    "Least Variance in Commits by Authors",
+		ContentMessage: "Authors in these projects have the least variance in the number of commits they contribute.  This is the best metric to see prjoects where multiple authors share the load. ",
+		MenuSection:    "least-coefficient-variation",
+		RepoStats:      recentStats}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}
