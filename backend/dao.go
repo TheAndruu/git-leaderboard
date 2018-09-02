@@ -35,7 +35,8 @@ GetStatsOrderedBy returns repo stats based on order of the given field.
 Include a hyphen at the start of the field to enforce descending order.
 */
 func GetStatsOrderedBy(ctx context.Context, minNumAuthors int, orderField string, limit int) *[]models.RepoStats {
-	query := datastore.NewQuery("RepoStats").Filter("AuthorCount >=", minNumAuthors).Order("AuthorCount").Order(orderField).Limit(limit)
+	// fetch limit * 2 to strip out elements with less than required authors later
+	query := datastore.NewQuery("RepoStats").Order("AuthorCount").Order(orderField).Limit(limit * 2)
 
 	var results []models.RepoStats
 	_, err := query.GetAll(ctx, &results)
@@ -43,5 +44,13 @@ func GetStatsOrderedBy(ctx context.Context, minNumAuthors int, orderField string
 		log.Errorf(ctx, "Issue querying RepoStats: %v", err)
 	}
 
-	return &results
+	trimmedList := []models.RepoStats{}
+	for _, element := range results {
+		// element is the element from someSlice for where we are
+		if element.AuthorCount >= minNumAuthors && len(trimmedList) < limit {
+			trimmedList = append(trimmedList, element)
+		}
+	}
+
+	return &trimmedList
 }

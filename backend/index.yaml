@@ -9,21 +9,6 @@ indexes:
 - kind: "RepoStats"
   properties:
   - name: "AuthorCount"
-  - name: "DateUpdated"
-    direction: desc
-- kind: "RepoStats"
-  properties:
-  - name: "AuthorCount"
-  - name: "TotalCommits"
-    direction: desc
-- kind: "RepoStats"
-  properties:
-  - name: "AuthorCount"
-  - name: "LeadAuthorTotal"
-    direction: desc
-- kind: "RepoStats"
-  properties:
-  - name: "AuthorCount"
   - name: "LeadAuthorPercent"
     direction: desc
 - kind: "RepoStats"
@@ -34,3 +19,18 @@ indexes:
   properties:
   - name: "AuthorCount"
   - name: "CommitDeviation"
+- kind: "RepoStats"
+  properties:
+  - name: "AuthorCount"
+  - name: "LeadAuthorTotal"
+    direction: desc
+- kind: "RepoStats"
+  properties:
+  - name: "AuthorCount"
+  - name: "TotalCommits"
+    direction: desc
+- kind: "RepoStats"
+  properties:
+  - name: "AuthorCount"
+  - name: "DateUpdated"
+    direction: desc
