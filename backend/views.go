@@ -95,7 +95,7 @@ func showMostSingleAuthor(w http.ResponseWriter, r *http.Request) {
 	recentStats := GetStatsOrderedBy(ctx, "-LeadAuthorTotal", fetchLimit)
 
 	pageData := RepoStatsPage{
-		Title:          "Highest Single Author",
+		Title:          "Biggest Single Author",
 		SubTitle:       "Most Commits by a Single Author",
 		ContentHead:    "Projects with biggest lead author",
 		ContentMessage: "The authors of these repositories have the most commits out of any other.",
@@ -119,6 +119,25 @@ func showLeadAuthorHighestPercent(w http.ResponseWriter, r *http.Request) {
 		ContentHead:    "Leading Commit Percentage",
 		ContentMessage: "Projects whose leading committer have the highest percentage of commits compared to the overall number of commits. ",
 		MenuSection:    "lead-author-highest-percent",
+		RepoStats:      recentStats}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}
+
+// Shows the leaders based on authors having the highest average commits
+func showHighestAverageCommits(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetStatsOrderedBy(ctx, "-LeadAuthorPercent", fetchLimit)
+
+	pageData := RepoStatsPage{
+		Title:          "Average Commits",
+		SubTitle:       "Highest Average Commits by Author",
+		ContentHead:    "Projects with Highest Commit Average",
+		ContentMessage: "The authors on these projects enjoy the highest number of average commits among all projects. ",
+		MenuSection:    "highest-average-commits",
 		RepoStats:      recentStats}
 
 	// outerTheme refernces the template defined within theme.html
