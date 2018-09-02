@@ -26,7 +26,7 @@ func showHome(w http.ResponseWriter, r *http.Request) {
 		SubTitle:    "Share projects' git stats and compete on the leaderboard!",
 		MenuSection: "home"}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["home.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -45,7 +45,7 @@ func showRecentlySubmitted(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "recently-submitted",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -64,7 +64,7 @@ func showMostCommits(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "most-commits",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -83,7 +83,7 @@ func showMostAuthors(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "most-authors",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -102,7 +102,7 @@ func showMostSingleAuthor(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "most-single-author",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -121,7 +121,7 @@ func showLeadAuthorHighestPercent(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "lead-author-highest-percent",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -140,7 +140,7 @@ func showHighestAverageCommits(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "highest-average-commits",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -159,7 +159,7 @@ func showLowestStandardDeviation(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "lowest-standard-deviation",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
 
@@ -178,6 +178,6 @@ func showLeastCoefficientVariation(w http.ResponseWriter, r *http.Request) {
 		MenuSection:    "least-coefficient-variation",
 		RepoStats:      recentStats}
 
-	// outerTheme refernces the template defined within theme.html
+	// outerTheme references the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
