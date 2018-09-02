@@ -126,8 +126,8 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 	stats.CommitDeviation = commitDeviation
 	stats.CoefficientVariation = commitDeviation / averageAuthorCommits
 
-	if len(stats.Commits) > 100 {
-		stats.Commits = stats.Commits[:100]
+	if len(stats.Commits) > numCommitsToSave {
+		stats.Commits = stats.Commits[:numCommitsToSave]
 	}
 
 	// TODO: add coefficient of variation:
