@@ -27,6 +27,7 @@ func defineRoutes() {
 	http.HandleFunc("/recently-submitted", showRecentlySubmitted)
 	http.HandleFunc("/most-commits", showMostCommits)
 	http.HandleFunc("/most-authors", showMostAuthors)
+	http.HandleFunc("/most-single-author", showMostSingleAuthor)
 	http.HandleFunc("/", showHome)
 }
 
