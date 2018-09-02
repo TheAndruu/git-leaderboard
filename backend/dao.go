@@ -34,8 +34,8 @@ func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, erro
 GetStatsOrderedBy returns repo stats based on order of the given field.
 Include a hyphen at the start of the field to enforce descending order.
 */
-func GetStatsOrderedBy(ctx context.Context, orderField string, limit int) *[]models.RepoStats {
-	query := datastore.NewQuery("RepoStats").Order(orderField).Limit(limit)
+func GetStatsOrderedBy(ctx context.Context, minNumAuthors int, orderField string, limit int) *[]models.RepoStats {
+	query := datastore.NewQuery("RepoStats").Filter("AuthorCount >=", minNumAuthors).Order("AuthorCount").Order(orderField).Limit(limit)
 
 	var results []models.RepoStats
 	_, err := query.GetAll(ctx, &results)
