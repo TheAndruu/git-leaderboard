@@ -25,6 +25,7 @@ func init() {
 func defineRoutes() {
 	http.HandleFunc("/repostats", saveRepoPost)
 	http.HandleFunc("/recently-submitted", showRecentlySubmitted)
+	http.HandleFunc("/most-commits", showMostCommits)
 	http.HandleFunc("/", showHome)
 }
 

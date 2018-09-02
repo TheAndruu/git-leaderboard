@@ -43,3 +43,17 @@ func GetRecentRepoStats(ctx context.Context, limit int) *[]models.RepoStats {
 
 	return &results
 }
+
+// GetReposWithMostCommits returns stats on projects with the most overall commits
+func GetReposWithMostCommits(ctx context.Context, limit int) *[]models.RepoStats {
+
+	query := datastore.NewQuery("RepoStats").Order("-TotalCommits").Limit(limit)
+
+	var results []models.RepoStats
+	_, err := query.GetAll(ctx, &results)
+	if err != nil {
+		log.Errorf(ctx, "Issue querying RepoStats with most commits: %v", err)
+	}
+
+	return &results
+}

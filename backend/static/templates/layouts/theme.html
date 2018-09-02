@@ -42,6 +42,7 @@
 
             <ul class="pure-menu-list">
                 <li class='pure-menu-item  {{ if eq .MenuSection "home" }} pure-menu-selected {{end}}'><a href="/" class="pure-menu-link">Home</a></li>
+                <li class='pure-menu-item {{ if eq .MenuSection "most-commits" }} pure-menu-selected {{end}}'><a href="/most-commits" class="pure-menu-link">Most Commits</a></li>
                 <li class='pure-menu-item {{ if eq .MenuSection "recently-submitted" }} pure-menu-selected {{end}}'><a href="/recently-submitted" class="pure-menu-link">Recently Submitted</a></li>
             </ul>
         </div>
