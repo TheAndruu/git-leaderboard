@@ -28,6 +28,8 @@ func defineRoutes() {
 	http.HandleFunc("/most-commits", showMostCommits)
 	http.HandleFunc("/most-authors", showMostAuthors)
 	http.HandleFunc("/most-single-author", showMostSingleAuthor)
+	http.HandleFunc("/lead-author-highest-percent", showLeadAuthorHighestPercent)
+
 	http.HandleFunc("/", showHome)
 }
 

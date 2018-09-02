@@ -105,3 +105,22 @@ func showMostSingleAuthor(w http.ResponseWriter, r *http.Request) {
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
 }
+
+// Shows the leaders based on author with the highest percent
+func showLeadAuthorHighestPercent(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetStatsOrderedBy(ctx, "-LeadAuthorPercent", fetchLimit)
+
+	pageData := RepoStatsPage{
+		Title:          "Authors with Highest Percentage",
+		SubTitle:       "Lead Authors with Highest Percentage of Commits",
+		ContentHead:    "Leading Commit Percentage",
+		ContentMessage: "Projects whose leading committer have the highest percentage of commits compared to the overall number of commits. ",
+		MenuSection:    "lead-author-highest-percent",
+		RepoStats:      recentStats}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}
