@@ -35,7 +35,7 @@ func showRecentlySubmitted(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	// get the 10 most recent RepoStats
-	recentStats := GetRecentRepoStats(ctx, fetchLimit)
+	recentStats := GetStatsOrderedBy(ctx, "-DateUpdated", fetchLimit)
 
 	pageData := RepoStatsPage{
 		Title:          "Recently Submitted",
@@ -54,7 +54,7 @@ func showMostCommits(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	// get the 10 most recent RepoStats
-	recentStats := GetReposWithMostCommits(ctx, fetchLimit)
+	recentStats := GetStatsOrderedBy(ctx, "-TotalCommits", fetchLimit)
 
 	pageData := RepoStatsPage{
 		Title:          "Most Commits",

@@ -30,29 +30,17 @@ func SaveStats(ctx context.Context, statsToSave *models.RepoStats) (string, erro
 	return key.StringID(), nil
 }
 
-// GetRecentRepoStats returns up to the specified limit of most recently-updated RepoStats
-func GetRecentRepoStats(ctx context.Context, limit int) *[]models.RepoStats {
-
-	query := datastore.NewQuery("RepoStats").Order("-DateUpdated").Limit(limit)
-
-	var results []models.RepoStats
-	_, err := query.GetAll(ctx, &results)
-	if err != nil {
-		log.Errorf(ctx, "Issue querying most recent RepoStats: %v", err)
-	}
-
-	return &results
-}
-
-// GetReposWithMostCommits returns stats on projects with the most overall commits
-func GetReposWithMostCommits(ctx context.Context, limit int) *[]models.RepoStats {
-
-	query := datastore.NewQuery("RepoStats").Order("-TotalCommits").Limit(limit)
+/*
+GetStatsOrderedBy returns repo stats based on order of the given field.
+Include a hyphen at the start of the field to enforce descending order.
+*/
+func GetStatsOrderedBy(ctx context.Context, orderField string, limit int) *[]models.RepoStats {
+	query := datastore.NewQuery("RepoStats").Order(orderField).Limit(limit)
 
 	var results []models.RepoStats
 	_, err := query.GetAll(ctx, &results)
 	if err != nil {
-		log.Errorf(ctx, "Issue querying RepoStats with most commits: %v", err)
+		log.Errorf(ctx, "Issue querying RepoStats: %v", err)
 	}
 
 	return &results
