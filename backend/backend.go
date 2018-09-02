@@ -17,6 +17,8 @@ import (
 
 var templates = make(map[string]*template.Template)
 
+var numCommitsToSave = 10
+
 func init() {
 	initializeTemplates()
 	defineRoutes()
@@ -121,8 +123,8 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 	stats.CommitDeviation = commitDeviation
 	stats.CoefficientVariation = commitDeviation / averageAuthorCommits
 
-	if len(stats.Commits) > 10 {
-		stats.Commits = stats.Commits[:10]
+	if len(stats.Commits) > 100 {
+		stats.Commits = stats.Commits[:100]
 	}
 
 	// TODO: add coefficient of variation:
