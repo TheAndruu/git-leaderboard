@@ -11,10 +11,12 @@ var fetchLimit = 50
 
 // RepoStatsPage has a title, subtitle, and list of RepoStats for display
 type RepoStatsPage struct {
-	Title       string
-	SubTitle    string
-	MenuSection string
-	RepoStats   *[]models.RepoStats
+	Title          string
+	SubTitle       string
+	MenuSection    string
+	ContentHead    string
+	ContentMessage string
+	RepoStats      *[]models.RepoStats
 }
 
 // Shows the leaders in the current git repos
@@ -36,10 +38,12 @@ func showRecentlySubmitted(w http.ResponseWriter, r *http.Request) {
 	recentStats := GetRecentRepoStats(ctx, fetchLimit)
 
 	pageData := RepoStatsPage{
-		Title:       "Recently Submitted",
-		SubTitle:    "Top committers in the most recently-submitted repositories",
-		MenuSection: "recently-submitted",
-		RepoStats:   recentStats}
+		Title:          "Recently Submitted",
+		SubTitle:       "Top committers in the most recently-submitted repositories",
+		ContentHead:    "Latest Projects",
+		ContentMessage: "These are the projects that have been submitted most recently.",
+		MenuSection:    "recently-submitted",
+		RepoStats:      recentStats}
 
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
@@ -53,10 +57,12 @@ func showMostCommits(w http.ResponseWriter, r *http.Request) {
 	recentStats := GetReposWithMostCommits(ctx, fetchLimit)
 
 	pageData := RepoStatsPage{
-		Title:       "Most Commits",
-		SubTitle:    "Projects with the most commits overal",
-		MenuSection: "most-commits",
-		RepoStats:   recentStats}
+		Title:          "Most Commits",
+		SubTitle:       "Projects with the most commits overal",
+		ContentHead:    "Highest number of overall commits",
+		ContentMessage: "These projects are those which have the highest number of commits by all authors added together.",
+		MenuSection:    "most-commits",
+		RepoStats:      recentStats}
 
 	// outerTheme refernces the template defined within theme.html
 	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
