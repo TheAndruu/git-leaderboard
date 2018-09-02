@@ -58,10 +58,29 @@ func showMostCommits(w http.ResponseWriter, r *http.Request) {
 
 	pageData := RepoStatsPage{
 		Title:          "Most Commits",
-		SubTitle:       "Projects with the most commits overal",
+		SubTitle:       "Projects with the most commits overall",
 		ContentHead:    "Highest number of overall commits",
 		ContentMessage: "These projects are those which have the highest number of commits by all authors added together.",
 		MenuSection:    "most-commits",
+		RepoStats:      recentStats}
+
+	// outerTheme refernces the template defined within theme.html
+	templates["leaderboard.html"].ExecuteTemplate(w, "outerTheme", pageData)
+}
+
+// Shows the leaders based on most authors
+func showMostAuthors(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+
+	// get the 10 most recent RepoStats
+	recentStats := GetStatsOrderedBy(ctx, "-AuthorCount", fetchLimit)
+
+	pageData := RepoStatsPage{
+		Title:          "Most Authors",
+		SubTitle:       "Projects who have the most authors",
+		ContentHead:    "More code committers than any other project",
+		ContentMessage: "Projects which have the highest number of authors submitting code updates.",
+		MenuSection:    "most-authors",
 		RepoStats:      recentStats}
 
 	// outerTheme refernces the template defined within theme.html
