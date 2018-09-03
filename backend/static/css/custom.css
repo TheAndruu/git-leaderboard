@@ -8,3 +8,7 @@
         /* Set your content font stack here: */
         font-family: 'Roboto', sans-serif;
     }
+
+    .content {
+        max-width: 1200px;
+    }
