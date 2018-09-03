@@ -27,7 +27,7 @@
                         {{end}}
 
                         {{ if eq $.MenuSection "highest-average-commits"}}
-                            Average author commits: {{printf "%.2f" .AverageAuthorCommits}}<br/>
+                            Avg author commits: {{printf "%.2f" .AverageAuthorCommits}}<br/>
                         {{end}}
 
                         {{ if eq $.MenuSection "lowest-standard-deviation"}}
@@ -35,7 +35,7 @@
                         {{end}}
                         
                         {{ if eq $.MenuSection "least-coefficient-variation"}}
-                            Coefficient variation: {{printf "%.2f" .CoefficientVariation}}<br/>
+                            Variation by author: {{printf "%.2f" .CoefficientVariation}}<br/>
                         {{end}}
                     </strong>
                         
