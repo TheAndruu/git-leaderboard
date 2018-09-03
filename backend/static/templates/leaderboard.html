@@ -1,7 +1,8 @@
 {{ define "content" }}    
         
-        <div class="pure-g">
 
+        <div class="pure-g">
+                
                 {{range .RepoStats}}
 
                 <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
@@ -9,13 +10,34 @@
                     <h3 class="content-subhead"><a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
                     </h3>
                         <br/>
-                        Total commits: {{.TotalCommits}} <br/>
-                        Author count: {{.AuthorCount}}<br/>
-                        Lead author total: {{.LeadAuthorTotal}}<br/>
-                        Lead author percent: {{printf "%.2f" .LeadAuthorPercent}}<br/>
-                        Average author commits: {{printf "%.2f" .AverageAuthorCommits}}<br/>
-                        Standard Deviation: {{ printf "%.2f" .CommitDeviation}}<br/>
-                        Coefficient Variation: {{printf "%.2f" .CoefficientVariation}}<br/>
+                        {{ if eq $.MenuSection "most-commits"}}
+                            Total commits: {{.TotalCommits}} <br/>
+                        {{end}}
+                        
+                        {{ if eq $.MenuSection "most-authors"}}
+                            Author count: {{.AuthorCount}}<br/>
+                        {{end}}
+
+                        {{ if eq $.MenuSection "most-single-author"}}
+                            Lead author total: {{.LeadAuthorTotal}}<br/>
+                        {{end}}
+
+                        {{ if eq $.MenuSection "lead-author-highest-percent"}}
+                            Lead author percent: {{printf "%.2f" .LeadAuthorPercent }}<br/>
+                        {{end}}
+
+                        {{ if eq $.MenuSection "highest-average-commits"}}
+                            Average author commits: {{printf "%.2f" .AverageAuthorCommits}}<br/>
+                        {{end}}
+
+                        {{ if eq $.MenuSection "lowest-standard-deviation"}}
+                            Standard Deviation: {{ printf "%.2f" .CommitDeviation}}<br/>
+                        {{end}}
+                        
+                        {{ if eq $.MenuSection "least-coefficient-variation"}}
+                            Coefficient Variation: {{printf "%.2f" .CoefficientVariation}}<br/>
+                        {{end}}
+                        
                         <ol>
                             {{range .Commits}}
                             <li>{{ .Author}} - {{.NumCommits}}</li>
