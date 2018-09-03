@@ -58,9 +58,6 @@ func saveRepoPost(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	// TODO: Add validation on the fields of the struct - strip out anything not valid
-
-	// TODO:
-	// add fields for the numTotalCommits, numLeadAuthor, percentLeadAuthorToTotal
 	computeStats(ctx, &target)
 
 	// Save the data
@@ -130,6 +127,4 @@ func computeStats(ctx context.Context, stats *models.RepoStats) {
 		stats.Commits = stats.Commits[:numCommitsToSave]
 	}
 
-	// TODO: add coefficient of variation:
-	// https://en.wikipedia.org/wiki/Coefficient_of_variation
 }
