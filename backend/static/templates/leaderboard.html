@@ -9,17 +9,17 @@
                         
                     <h3 class="content-subhead"><a href="{{.RepoURL}}" title="{{.RepoName}}" target="_blank">{{.RepoName}}</a>
                     </h3>
-                        <br/>
+                        <strong>
                         {{ if eq $.MenuSection "most-commits"}}
-                            Total commits: {{.TotalCommits}} <br/>
+                            Total commit count: {{.TotalCommits}} <br/>
                         {{end}}
                         
                         {{ if eq $.MenuSection "most-authors"}}
-                            Author count: {{.AuthorCount}}<br/>
+                            Number of authors: {{.AuthorCount}}<br/>
                         {{end}}
 
                         {{ if eq $.MenuSection "most-single-author"}}
-                            Lead author total: {{.LeadAuthorTotal}}<br/>
+                            Lead author commits: {{.LeadAuthorTotal}}<br/>
                         {{end}}
 
                         {{ if eq $.MenuSection "lead-author-highest-percent"}}
@@ -31,12 +31,13 @@
                         {{end}}
 
                         {{ if eq $.MenuSection "lowest-standard-deviation"}}
-                            Standard Deviation: {{ printf "%.2f" .CommitDeviation}}<br/>
+                            Standard deviation: {{ printf "%.2f" .CommitDeviation}}<br/>
                         {{end}}
                         
                         {{ if eq $.MenuSection "least-coefficient-variation"}}
-                            Coefficient Variation: {{printf "%.2f" .CoefficientVariation}}<br/>
+                            Coefficient variation: {{printf "%.2f" .CoefficientVariation}}<br/>
                         {{end}}
+                    </strong>
                         
                         <ol>
                             {{range .Commits}}
