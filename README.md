@@ -58,7 +58,7 @@ If you have golang installed on your local machine, you can execute:
 
      go get github.com/TheAndruu/git-leaderboard
      cd $GOPATH/src/github.com/TheAndruu/git-leaderboard
-     go install show-commits.go
+     go build show-commits.go
 
 If you have $GOBIN set up on your $PATH, you can now run `show-commits` from any git repo on your machine.
 
